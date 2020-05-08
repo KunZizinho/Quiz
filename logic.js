@@ -182,6 +182,8 @@ function init() {
 // funkcija za pohranjivanje rezultata
 function storeScore() {
     localStorage.setItem("userInitials", JSON.stringify(userInitials));
+    highScoreEl.appendChild(userInitials)
+    
 }
 
 scoreList.addEventListener("click", function (event) {
