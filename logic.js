@@ -1,9 +1,7 @@
 
 // timer variabla/interval
-
 var secondsLeft = 90;
 var timerInterval;
-
 // pitanja i odgovori
 var questions = [{
         title: "What is JSON?",
