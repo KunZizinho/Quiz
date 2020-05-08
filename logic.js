@@ -41,3 +41,47 @@ var questions = [{
         answer: "In most cases, JavaScript is used to create responsive, interactive elements for web pages, enhancing the user experience"
     }
 ];
+
+var timeEl = document.querySelector(".Time");
+var questionsEl = document.querySelector(".questions-rendered");
+var scoreEl = document.querySelector(".Score");
+var highScoreEl = document.querySelector(".highScore");
+var submitButton = document.querySelector("#submit");
+var refreshButton = document.querySelector("#goBack");
+
+var initialInput = document.querySelector("#initials");
+var scoreList = document.querySelector("#scoreList");
+var scoreForm = document.querySelector("#score-form");
+
+var userInitials = [];
+
+document.querySelector('.Score').style.display = 'none';
+document.querySelector('.highscorePage').style.display = 'none';
+
+refreshButton.addEventListener("click", function () {
+    location.reload()
+});
+
+// funkcija kojom postavljamo tajmer
+function setTime() {
+    timerInterval = setInterval(function () {
+        secondsLeft--;
+        timeEl.textContent = "TIME REMAINING: " + secondsLeft;
+        if (secondsLeft === 0) {
+            clearInterval(timerInterval);
+            document.querySelector('.Score').style.display = 'block';
+            document.querySelector(".Time").style.display = 'none';
+            document.querySelector('.questions-rendered').style.display = 'none';
+            highScoreEl.textContent = "YOUR SCORE IS " + secondsLeft;
+        }
+    }, 1000);
+}
+
+const startBtn = document.getElementById("startquiz");
+
+startBtn.addEventListener('click', function () {
+    setTime();
+    startBtn.style.display = 'none';
+    document.querySelector('.QnA').style.display = 'none';
+    displayQuestions(questionIndex);
+})
