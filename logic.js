@@ -145,3 +145,54 @@ function renderScores() {
         scoreList.appendChild(li);
     }
 }
+
+
+// funkcija za iniciranje igre
+function init() {
+    var storedScores = JSON.parse(localStorage.getItem("userInitials"));
+
+    if (storedScores !== null) {
+        userInitials = storedScores;
+    }
+
+    const submitBtn = document.getElementById("submit");
+
+    submitBtn.addEventListener('click', function () {
+        event.preventDefault();
+
+        var initialText = initialInput.value.trim();
+
+        if (initialText === "") {
+            return;
+        }
+        userInitials.push(initialText + " " + secondsLeft);
+        console.log(userInitials);
+        initialInput.value = "";
+
+        document.querySelector('.Score').style.display = 'none';
+        document.querySelector('.highscorePage').style.display = 'block';
+
+        storeScore();
+        renderScores();
+
+    });
+}
+
+
+// funkcija za pohranjivanje rezultata
+function storeScore() {
+    localStorage.setItem("userInitials", JSON.stringify(userInitials));
+}
+
+scoreList.addEventListener("click", function (event) {
+    var element = event.target;
+
+    if (element.matches("button") === true) {
+        var index = element.parentElement.getAttribute("data-index");
+        userInitials.splice(index, 1);
+
+        storeScore();
+        renderScores();
+    }
+});
+init();
